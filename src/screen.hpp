@@ -2,7 +2,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Vector2.hpp>
-
+namespace screen {
 
 class RenderPixel{
     public:
@@ -14,13 +14,14 @@ class RenderPixel{
     }
 
 };
-static void screen_update(sf::RenderWindow &window, std::vector<RenderPixel> &render_pixels){
+static const sf::Vector2i ScreenSize = sf::Vector2i(600,600);
+static void update(sf::RenderWindow &window, std::vector<RenderPixel> &render_pixels){
     
     for (auto &p : render_pixels) {
         sf::RectangleShape this_pixel = sf::RectangleShape(sf::Vector2f(1,1));
-        this_pixel.setPosition(p.position.x, p.position.y);
+        this_pixel.setPosition(window.mapPixelToCoords(sf::Vector2i(p.position.x, p.position.y)));
         this_pixel.setFillColor(p.pixel_color);
         window.draw(this_pixel);
 
     }
-}
+}}
