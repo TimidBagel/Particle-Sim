@@ -6,7 +6,7 @@
 static class EntityManager {
 	std::vector<std::shared_ptr<Entity>> entities;
 
-	void add_entity() {
-
+	void add_entity(std::shared_ptr<Entity> entity) {
+		entities.push_back(entity);
 	}
 };
