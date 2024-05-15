@@ -1,14 +1,22 @@
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/System/Vector2.hpp>
 #include<iostream>
+#include <vector>
 
 #include "include/SFML/Graphics.hpp"
+#include "src/screen.hpp"
 
-static void simulate(sf::Time delta) {}
+static void simulate(sf::Time delta) 
+{
+     
+}
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     sf::Clock clock;
     sf::Time time_curr;
     sf::Time time_prev;
+   
 
     while (window.isOpen())
     {
@@ -21,9 +29,11 @@ int main() {
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+           
         }
 
         window.clear();
+        ScreenUpdate();
         simulate(delta);
         window.display();
     }
