@@ -18,7 +18,7 @@ public:
 
 	template<typename T>
 	T get_component() {
-		if constexpr (!std::is_base_of_v(Component, T)) {
+		if constexpr (!std::is_base_of_v<Component, T>()) {
 			throw std::invalid_argument("Dude, wrong type man. Try again.");
 		}
 		for (auto& component : components) {
