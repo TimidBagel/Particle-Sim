@@ -33,7 +33,7 @@ public:
 
 	void update() {
 		for (auto& component : components) {
-			component->Update();
+			component->update();
 		}
 	}
 };
