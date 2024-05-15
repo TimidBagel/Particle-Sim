@@ -2,9 +2,7 @@
 
 #include "include/SFML/Graphics.hpp"
 
-static void simulate(sf::Time delta) {
-    std::cout << delta.asMicroseconds();
-}
+static void simulate(sf::Time delta) {}
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
@@ -14,7 +12,7 @@ int main() {
 
     while (window.isOpen())
     {
-        time_curr = clock.getElapsedTime();
+        time_curr = clock.restart();
         sf::Time delta = time_curr - time_prev;
         time_prev = time_curr;
 
@@ -28,8 +26,6 @@ int main() {
         window.clear();
         simulate(delta);
         window.display();
-
-        clock.restart();
     }
 
     return 0;
