@@ -2,6 +2,6 @@
 
 class Component {
 public:
-	virtual void Update();
+	virtual void update();
 	virtual ~Component() {}
 };

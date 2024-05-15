@@ -11,13 +11,13 @@ class Entity {
 private:
 	std::vector<std::shared_ptr<Component>> components;
 public:
-	void AddComponent(std::shared_ptr<Component> component) {
+	void add_component(std::shared_ptr<Component> component) {
 		/// TODO: prevent duplicate components
 		components.push_back(component);
 	}
 
 	template<typename T>
-	T GetComponent() {
+	T get_component() {
 		if constexpr (!std::is_base_of_v(Component, T)) {
 			throw std::invalid_argument("Dude, wrong type man. Try again.");
 		}
@@ -31,7 +31,7 @@ public:
 		std::cerr << "Component not found in entity" << endl;
 	}	
 
-	void Update() {
+	void update() {
 		for (auto& component : components) {
 			component->Update();
 		}
