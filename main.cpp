@@ -13,10 +13,10 @@
 #include "include/SFML/Graphics.hpp"
 #include "src/screen.hpp"
  static sf::View camera;
- const bool EnableCameraMovement = true;
+ const bool ENABLE_CAMERA_MOVEMENT = true;
 static void simulate(sf::Time delta) 
 {
-    if(EnableCameraMovement){
+    if(ENABLE_CAMERA_MOVEMENT){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         camera.move(-0.1,0);
     }
@@ -36,7 +36,7 @@ static void simulate(sf::Time delta)
 
 int main() {
    
-    sf::RenderWindow window(sf::VideoMode(screen::ScreenSize.x, screen::ScreenSize.y), "SFML works!", sf::Style::Titlebar|sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(screen::SCREEN_SIZE.x, screen::SCREEN_SIZE.y), "SFML works!", sf::Style::Titlebar|sf::Style::Close);
      camera = window.getDefaultView();
      camera.zoom(0.3f);
     sf::Clock clock;

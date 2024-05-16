@@ -14,7 +14,7 @@ class RenderPixel{
     }
 
 };
-static const sf::Vector2i ScreenSize = sf::Vector2i(1600,1200);
+static const sf::Vector2i SCREEN_SIZE = sf::Vector2i(1600,1200);
 static void update(sf::RenderWindow &window, std::vector<RenderPixel> &render_pixels){
     
     for (auto &p : render_pixels) {
