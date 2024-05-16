@@ -34,6 +34,7 @@ static void simulate(sf::Time delta)
            
 }
 
+
 int main() {
    
     sf::RenderWindow window(sf::VideoMode(screen::SCREEN_SIZE.x, screen::SCREEN_SIZE.y), "SFML works!", sf::Style::Titlebar|sf::Style::Close);
