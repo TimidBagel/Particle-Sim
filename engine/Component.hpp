@@ -2,9 +2,9 @@
 #include <iostream>
 #include <ostream>
 namespace ecs {
-class Component {
+	class Component {
 	public:
-		virtual void update(){std::cout<<"parentcall"<<std::endl;};
+		virtual void update() { std::cout << "parentcall" << std::endl; };
 		virtual ~Component() {}
 	};
 }
