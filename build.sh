@@ -1,3 +1,3 @@
 #! /usr/bin/bash
-g++ -c main.cpp 
-g++ main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+g++ -c $1.cpp 
+g++ $1.o -o $1-app -lsfml-graphics -lsfml-window -lsfml-system

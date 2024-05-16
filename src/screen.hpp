@@ -14,12 +14,12 @@ class RenderPixel{
     }
 
 };
-static const sf::Vector2i ScreenSize = sf::Vector2i(600,600);
+static const sf::Vector2i ScreenSize = sf::Vector2i(1600,1200);
 static void update(sf::RenderWindow &window, std::vector<RenderPixel> &render_pixels){
     
     for (auto &p : render_pixels) {
         sf::RectangleShape this_pixel = sf::RectangleShape(sf::Vector2f(1,1));
-        this_pixel.setPosition(window.mapPixelToCoords(sf::Vector2i(p.position.x, p.position.y)));
+        this_pixel.setPosition(sf::Vector2f(p.position.x, p.position.y));
         this_pixel.setFillColor(p.pixel_color);
         window.draw(this_pixel);
 

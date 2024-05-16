@@ -1,3 +1,4 @@
+#include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -6,25 +7,47 @@
 #include <SFML/Window/WindowStyle.hpp>
 #include <cstdio>
 #include<iostream>
+#include <ostream>
 #include <vector>
 
 #include "include/SFML/Graphics.hpp"
 #include "src/screen.hpp"
-
+ static sf::View camera;
+ const bool EnableCameraMovement = true;
 static void simulate(sf::Time delta) 
 {
-     
+    if(EnableCameraMovement){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        camera.move(-0.1,0);
+    }
+     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        camera.move(0.1,0);
+    }
+     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        camera.move(0,-0.1);
+    }
+     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        camera.move(0,0.1);
+    }
+    }
+    
+           
 }
 
 int main() {
+   
     sf::RenderWindow window(sf::VideoMode(screen::ScreenSize.x, screen::ScreenSize.y), "SFML works!", sf::Style::Titlebar|sf::Style::Close);
+     camera = window.getDefaultView();
+     camera.zoom(0.3f);
     sf::Clock clock;
     sf::Time time_curr;
     sf::Time time_prev;
-    sf::View camera(sf::FloatRect(200.f, 200.f, 300.f, 200.f));
+    
+   
+   
     //temporary, to test that I can render stuff
     std::vector<screen::RenderPixel> render_pixels;
-    for (int i =0; i<50; i++) { 
+    for (int i =0; i<5000; i++) { 
         screen::RenderPixel testPixel = screen::RenderPixel(sf::Vector2i(60+i,60+i), sf::Color::Red);
         render_pixels.emplace_back(testPixel);
     
@@ -40,18 +63,18 @@ int main() {
         sf::Event event;
         while (window.pollEvent(event))
         {
+            
             if (event.type == sf::Event::Closed){
                 window.close();
             }
-                //if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-                    camera.move(sf::Vector2f(20,0));
-                  //  printf("mover");
-                //}
+             
            
            
         }
 
         window.clear();
+        window.setView(camera);
+        
         screen::update(window, render_pixels);
         simulate(delta);
         window.display();
