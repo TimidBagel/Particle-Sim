@@ -180,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\Component.hpp" />
+    <ClInclude Include="engine\components\Health.hpp" />
     <ClInclude Include="engine\Entity.hpp" />
     <ClInclude Include="engine\EntityManager.hpp" />
     <ClInclude Include="engine\Health.hpp" />

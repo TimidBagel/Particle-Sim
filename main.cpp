@@ -1,32 +1,58 @@
-#include<iostream>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/View.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/WindowStyle.hpp>
+#include <cstdio>
+#include <iostream>
+#include <ostream>
+#include <vector>
+#include <ostream>
+#include <vector>
 
+#include "engine/Component.hpp"
+#include "engine/EntityManager.hpp"
 #include "include/SFML/Graphics.hpp"
 
-static void simulate(sf::Time delta) {}
+#include "engine/components/Health.hpp"
+#include "src/screen.hpp"
+
+static ecs::EntityManager entity_manager;
+static sf::View camera;
+static void simulate(sf::Time delta) { entity_manager.update(); }
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::Clock clock;
-    sf::Time time_curr;
-    sf::Time time_prev;
 
-    while (window.isOpen())
-    {
-        time_curr = clock.restart();
-        sf::Time delta = time_curr - time_prev;
-        time_prev = time_curr;
+	sf::RenderWindow window(sf::VideoMode(screen::SCREEN_SIZE.x, screen::SCREEN_SIZE.y), "SFML works!", sf::Style::Titlebar | sf::Style::Close);
+	camera = window.getDefaultView();
+	camera.zoom(0.3f);
+	sf::Clock clock;
+	sf::Time time_curr;
+	sf::Time time_prev;
 
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+	while (window.isOpen())
+	{
+		time_curr = clock.restart();
+		sf::Time delta = time_curr - time_prev;
+		time_prev = time_curr;
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+		}
 
-        window.clear();
-        simulate(delta);
-        window.display();
-    }
+		std::vector<screen::RenderPixel> render_pixels;
 
-    return 0;
+		window.clear();
+		window.setView(camera);
+		screen::update(window, render_pixels);
+		simulate(delta);
+		window.display();
+	}
+
+	return 0;
 }
