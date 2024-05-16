@@ -9,16 +9,16 @@
 
 class Entity {
 private:
-	std::vector<std::shared_ptr<Component>> components;
+	std::vector<std::shared_ptr<ecs::Component>> components;
 public:
-	void add_component(std::shared_ptr<Component> component) {
+	void add_component(std::shared_ptr<ecs::Component> component) {
 		/// TODO: prevent duplicate components
 		components.push_back(component);
 	}
 
 	template<typename T>
 	T get_component() {
-		if constexpr (!std::is_base_of_v<Component, T>()) {
+		if constexpr (!std::is_base_of_v<ecs::Component, T>()) {
 			throw std::invalid_argument("Dude, wrong type man. Try again.");
 		}
 		for (auto& component : components) {

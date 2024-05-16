@@ -1,13 +1,16 @@
-#include "Component.hpp"
+#include "../Component.hpp"
 #include <iostream>
 #include <ostream>
 
 namespace ecs {
 	class Health : public Component {
 	public:
-	float HP=50;
+	float HP=5;
+	 Health(int h){
+		HP=h;
+	}
 	 Health(){
-		HP=50;
+		
 	}
 	 void update() {
 		if(HP>=0){

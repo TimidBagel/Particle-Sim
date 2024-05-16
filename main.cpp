@@ -5,7 +5,7 @@
 #include "engine/Component.hpp"
 #include "include/SFML/Graphics.hpp"
 #include "engine/Entity.hpp"
-#include "engine/Health.hpp"
+#include "engine/builtincomponents/Health.hpp"
 
  static std::vector<ecs::Entity> AllEntities;
 using  namespace ecs;
@@ -14,7 +14,7 @@ static void simulate(sf::Time delta)
    
     for (auto& entity : AllEntities) {
         for (auto& comp : entity.components) {
-            //std::cout << entity.components.size()<<std::endl;
+            
             comp->update();
         }
     }
@@ -28,9 +28,10 @@ int main() {
    
     ecs::Entity newEntity = ecs::Entity();
     ecs::Health healthComp = ecs::Health();
-    newEntity.components.emplace_back(&healthComp);
+   
+    newEntity.add_component<ecs::Health>();
     AllEntities.emplace_back(newEntity);
-    //std::cout << newEntity.get_component<ecs::Health>().HP<<std::endl;
+   
 
     while (window.isOpen())
     {
