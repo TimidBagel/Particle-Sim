@@ -32,7 +32,9 @@ int main() {
     sf::Time time_prev;
     
    
-   
+   ecs::Entity newEntity = ecs::Entity();
+   newEntity.add_component<ecs::Health>();
+   entity_manager.add_entity(newEntity);
     //temporary, to test that I can render stuff
     std::vector<screen::RenderPixel> render_pixels;
     for (int i =0; i<5000; i++) { 
