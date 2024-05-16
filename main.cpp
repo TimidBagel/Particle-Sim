@@ -18,57 +18,41 @@
 
 #include "engine/components/Health.hpp"
 #include "src/screen.hpp"
+
 static ecs::EntityManager entity_manager;
 static sf::View camera;
 static void simulate(sf::Time delta) { entity_manager.update(); }
 
 int main() {
-   
-    sf::RenderWindow window(sf::VideoMode(screen::SCREEN_SIZE.x, screen::SCREEN_SIZE.y), "SFML works!", sf::Style::Titlebar|sf::Style::Close);
-     camera = window.getDefaultView();
-     camera.zoom(0.3f);
-    sf::Clock clock;
-    sf::Time time_curr;
-    sf::Time time_prev;
-    
-   
-   ecs::Entity newEntity = ecs::Entity();
-   newEntity.add_component<ecs::Health>();
-   entity_manager.add_entity(newEntity);
-    //temporary, to test that I can render stuff
-    std::vector<screen::RenderPixel> render_pixels;
-    for (int i =0; i<5000; i++) { 
-        screen::RenderPixel testPixel = screen::RenderPixel(sf::Vector2i(60+i,60+i), sf::Color::Red);
-        render_pixels.emplace_back(testPixel);
-    
-    }
-  
 
-    while (window.isOpen())
-    {
-        time_curr = clock.restart();
-        sf::Time delta = time_curr - time_prev;
-        time_prev = time_curr;
-        
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            
-            if (event.type == sf::Event::Closed){
-                window.close();
-            }
-             
-           
-           
-        }
+	sf::RenderWindow window(sf::VideoMode(screen::SCREEN_SIZE.x, screen::SCREEN_SIZE.y), "SFML works!", sf::Style::Titlebar | sf::Style::Close);
+	camera = window.getDefaultView();
+	camera.zoom(0.3f);
+	sf::Clock clock;
+	sf::Time time_curr;
+	sf::Time time_prev;
 
-        window.clear();
-        window.setView(camera);
-        
-        screen::update(window, render_pixels);
-        simulate(delta);
-        window.display();
-    }
+	while (window.isOpen())
+	{
+		time_curr = clock.restart();
+		sf::Time delta = time_curr - time_prev;
+		time_prev = time_curr;
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+		}
+
+		std::vector<screen::RenderPixel> render_pixels;
+
+		window.clear();
+		window.setView(camera);
+		screen::update(window, render_pixels);
+		simulate(delta);
+		window.display();
+	}
 
 	return 0;
 }
