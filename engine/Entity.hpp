@@ -1,39 +1,30 @@
-#pragma once
-
-#include<iostream>
-#include<vector>
-#include<memory>
-
-#include<stdexcept>
+//kits testing to try and figure out entitycomponent
 #include "Component.hpp"
-
-class Entity {
-private:
-	std::vector<std::shared_ptr<Component>> components;
-public:
-	void add_component(std::shared_ptr<Component> component) {
-		/// TODO: prevent duplicate components
-		components.push_back(component);
-	}
-
-	template<typename T>
-	T get_component() {
-		if constexpr (!std::is_base_of_v<Component, T>()) {
-			throw std::invalid_argument("Dude, wrong type man. Try again.");
-		}
-		for (auto& component : components) {
-			// cast the component as `T` to check if it's the same type
-			if (auto ptr = std::dynamic_pointer_cast<T>(component)) {
-				// if cast successful, return pointer of type
-				return ptr;
-			}
-		}
-		std::cerr << "Component not found in entity" << endl;
-	}	
-
-	void update() {
-		for (auto& component : components) {
-			component->update();
-		}
-	}
+#include <iostream>
+#include <ostream>
+#include <typeinfo>
+#include <vector>
+namespace ecs {
+    class Entity{
+    public:
+    
+    std::vector<Component*> components;
+    template <typename T> 
+    
+    T get_component(){
+        T instance = T();
+        for (auto& comp : components) {
+            //std::cout << typeid(comp).name()<<std::endl;
+            // std::cout << typeid(instance).name()<<std::endl;
+             T * end = static_cast<T*>(&instance);
+             //std::cout << typeid(*end).name()<<std::endl;
+            if(typeid(*end).name() == typeid(instance).name()){
+               
+                return *end;
+            }
+        }
+        std::cout << "Target does not have that component!"<<std::endl;
+        return instance;
+    }
 };
+}
