@@ -3,21 +3,17 @@
 #include <vector>
 
 #include "engine/Component.hpp"
+#include "engine/EntityManager.hpp"
 #include "include/SFML/Graphics.hpp"
-#include "engine/Entity.hpp"
+
 #include "engine/builtincomponents/Health.hpp"
 
- static std::vector<ecs::Entity> AllEntities;
 using  namespace ecs;
+static ecs::EntityManager entity_manager;
 static void simulate(sf::Time delta) 
 {
-   
-    for (auto& entity : AllEntities) {
-        for (auto& comp : entity.components) {
-            
-            comp->update();
-        }
-    }
+   entity_manager.update();
+    
 }
 
 int main() {
@@ -25,12 +21,10 @@ int main() {
     sf::Clock clock;
     sf::Time time_curr;
     sf::Time time_prev;
-   
+   //For testing
     ecs::Entity newEntity = ecs::Entity();
-    ecs::Health healthComp = ecs::Health();
-   
     newEntity.add_component<ecs::Health>();
-    AllEntities.emplace_back(newEntity);
+   entity_manager.all_entities.emplace_back(newEntity);
    
 
     while (window.isOpen())

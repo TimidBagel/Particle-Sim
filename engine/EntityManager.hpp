@@ -2,24 +2,17 @@
 
 #include "Component.hpp"
 #include "Entity.hpp"
-
-static class EntityManager {
-private:
-	std::vector<std::shared_ptr<Entity>> entities;
-
+namespace ecs {
+class EntityManager {
 public:
-	void add_entity(std::shared_ptr<Entity> entity) {
-		entities.push_back(entity);
-	}
+  std::vector<ecs::Entity> all_entities;
+  void update() {
+    for (auto &entity : all_entities) {
+      for (auto &comp : entity.components) {
 
-	int remove_entity(std::shared_ptr<Entity> doomed_entity) {
-		int entity_index = 0;
-		for (auto& iter_entity : entities) {
-			if (iter_entity == doomed_entity) {
-				entities.erase(entities.begin() + entity_index);
-				return entity_index;
-			}
-			entity_index++;
-		}
-	}
+        comp->update();
+      }
+    }
+  }
 };
+}; // namespace ecs

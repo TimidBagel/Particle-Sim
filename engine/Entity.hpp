@@ -23,22 +23,10 @@ namespace ecs {
                 return *end;
             }
         }
-        //std::cout << "Target does not have that component!"<<std::endl;
+       
         return instance;
     }
-    // T get_component() {
-	// 	if constexpr (!std::is_base_of_v<Component, T>()) {
-	// 		throw std::invalid_argument("Dude, wrong type man. Try again.");
-	// 	}
-	// 	for (auto& component : components) {
-	// 		// cast the component as `T` to check if it's the same type
-	// 		if (auto ptr = std::dynamic_pointer_cast<T>(component)) {
-	// 			// if cast successful, return pointer of type
-	// 			return ptr;
-	// 		}
-	// 	}
-	// 	std::cerr << "Component not found in entity" << std::endl;
-	// }	
+    
     template <typename T> 
      void add_component(){
         std::shared_ptr<T> instance = std::shared_ptr<T>(new T());
