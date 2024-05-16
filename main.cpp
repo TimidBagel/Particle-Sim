@@ -6,34 +6,21 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/WindowStyle.hpp>
 #include <cstdio>
-#include<iostream>
+#include <iostream>
+#include <ostream>
+#include <vector>
 #include <ostream>
 #include <vector>
 
+#include "engine/Component.hpp"
+#include "engine/EntityManager.hpp"
 #include "include/SFML/Graphics.hpp"
-#include "src/screen.hpp"
- static sf::View camera;
- const bool ENABLE_CAMERA_MOVEMENT = true;
-static void simulate(sf::Time delta) 
-{
-    if(ENABLE_CAMERA_MOVEMENT){
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        camera.move(-0.1,0);
-    }
-     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        camera.move(0.1,0);
-    }
-     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        camera.move(0,-0.1);
-    }
-     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        camera.move(0,0.1);
-    }
-    }
-    
-           
-}
 
+#include "engine/components/Health.hpp"
+#include "src/screen.hpp"
+static ecs::EntityManager entity_manager;
+static sf::View camera;
+static void simulate(sf::Time delta) { entity_manager.update(); }
 
 int main() {
    
@@ -81,5 +68,5 @@ int main() {
         window.display();
     }
 
-    return 0;
+	return 0;
 }
